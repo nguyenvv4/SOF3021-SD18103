@@ -18,24 +18,42 @@ public class AppController {
 
     @GetMapping("/hien-thi")
 //    @RequestMapping(value = "/hien-thi", method = RequestMethod.GET)
-    public String hienThi(Model model){
+    public String hienThi(Model model) {
         ArrayList<SinhVien> list = sinhVienService.getAll();
         model.addAttribute("list", list);
+        model.addAttribute("sinhVien", new SinhVien());
         return "index";
     }
 
-    @GetMapping("/detail")
-    public String detail(@RequestParam("username") String un){
-        System.out.println("name : "+un);
-        return "index";
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable String id, Model model) {
+        model.addAttribute("sinhVien", sinhVienService.detail(id));
+        return "detail";
     }
 
-    @PostMapping("/add")
-    public String login(@RequestParam("username") String username,
-                        @RequestParam("diaChi") String diaChi,
-                        @RequestParam("id") String id,
-                        @RequestParam("gioiTinh") String gioiTinh){
-        sinhVienService.addNew(new SinhVien(id,username,gioiTinh,diaChi));
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable String id,
+                         @RequestParam("username") String username,
+                         @RequestParam("diaChi") String diaChi,
+                         @RequestParam("gioiTinh") String gioiTinh) {
+        sinhVienService.update(id, new SinhVien(username, diaChi, gioiTinh));
         return "redirect:/sinh-vien/hien-thi";
+    }
+
+    //    @PostMapping("/add")
+//    public String login(@RequestParam("username") String username,
+//                        @RequestParam("diaChi") String diaChi,
+//                        @RequestParam("id") String id,
+//                        @RequestParam("gioiTinh") String gioiTinh) {
+//        sinhVienService.addNew(new SinhVien(id, username, gioiTinh, diaChi));
+//        return "redirect:/sinh-vien/hien-thi";
+//    }
+    @PostMapping("/add")
+    public String add(@ModelAttribute("sinhVien") SinhVien sinhVien) {
+//        sinhVienService.addNew();
+//        return "redirect:/sinh-vien/hien-thi";
+        sinhVienService.addNew(sinhVien);
+        return "redirect:/sinh-vien/hien-thi";
+
     }
 }
