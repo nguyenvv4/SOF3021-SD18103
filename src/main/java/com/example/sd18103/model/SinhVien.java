@@ -1,5 +1,6 @@
 package com.example.sd18103.model;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -9,8 +10,10 @@ import lombok.*;
 @Data
 public class SinhVien {
 
+    @NotBlank(message = "Khong de trong id")
     private String id;
 
+    @NotBlank(message = "Name Khong de trong id")
     private String username;
 
     private String gioiTinh;

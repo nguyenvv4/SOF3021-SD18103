@@ -2,9 +2,12 @@ package com.example.sd18103.controller;
 
 import com.example.sd18103.model.SinhVien;
 import com.example.sd18103.service.SinhVienService;
+import com.oracle.wls.shaded.org.apache.xpath.operations.Mod;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -49,9 +52,15 @@ public class AppController {
 //        return "redirect:/sinh-vien/hien-thi";
 //    }
     @PostMapping("/add")
-    public String add(@ModelAttribute("sinhVien") SinhVien sinhVien) {
+    public String add(@Valid @ModelAttribute("sinhVien") SinhVien sinhVien,
+                      BindingResult bindingResult,
+                      Model model) {
 //        sinhVienService.addNew();
 //        return "redirect:/sinh-vien/hien-thi";
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("error", bindingResult.getFieldErrors());
+            return "index";
+        }
         sinhVienService.addNew(sinhVien);
         return "redirect:/sinh-vien/hien-thi";
 

@@ -34,10 +34,12 @@
 <form:form action="/sinh-vien/add" modelAttribute="sinhVien">
     <div class="form-group">
         <label>id</label>
-        <form:input path="id" class="form-control"/>
+        <form:input path="id" class="form-control"/> <br/>
+        <form:errors path="id"/>
     </div>
 
-    <form:input path="username"/>
+    <form:input path="username"/> <br/>
+    <form:errors path="username"/>
     <form:input path="diaChi"/>
     <form:input path="gioiTinh"/>
     <button>Save</button>
