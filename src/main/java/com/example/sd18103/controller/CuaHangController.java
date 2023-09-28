@@ -30,4 +30,40 @@ public class CuaHangController {
 //        getByName.forEach(x -> System.out.println(x.toString()));
         return null;
     }
+
+    @GetMapping("/add")
+//    @RequestMapping(value = "/hien-thi", method = RequestMethod.GET)
+    public String add(Model model) {
+        // save 1 ban ghi
+//        CuaHang cuaHang = new CuaHang();
+//        cuaHang.setMa("CH13");
+//        cuaHang.setTen("Hung baba");
+//        cuaHang.setDiaChi("Ha noi");
+//        cuaHang.setThanhPho("ha noi");
+//        cuaHang.setQuocGia("viet nam");
+//
+//        cuaHangRepository.save(cuaHang);
+
+        // save nhieu ban ghi
+        CuaHang cuaHang = new CuaHang();
+        cuaHang.setMa("CH14");
+        cuaHang.setTen("Hung baba");
+        cuaHang.setDiaChi("Ha noi");
+        cuaHang.setThanhPho("ha noi");
+        cuaHang.setQuocGia("viet nam");
+
+        CuaHang cuaHang2 = new CuaHang();
+        cuaHang2.setMa("CH15");
+        cuaHang2.setTen("Hung baba");
+        cuaHang2.setDiaChi("Ha noi");
+        cuaHang2.setThanhPho("ha noi");
+        cuaHang2.setQuocGia("viet nam");
+        List<CuaHang> list = new ArrayList<>();
+        list.add(cuaHang);
+        list.add(cuaHang2);
+
+        cuaHangRepository.saveAll(list);
+
+        return null;
+    }
 }
