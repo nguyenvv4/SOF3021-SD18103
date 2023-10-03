@@ -4,6 +4,10 @@ import com.example.sd18103.model.CuaHang;
 import com.example.sd18103.model.SinhVien;
 import com.example.sd18103.repository.CuaHangRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,15 +24,23 @@ public class CuaHangController {
     @Autowired
     private CuaHangRepository cuaHangRepository;
 
+//    @GetMapping("/hien-thi")
+////    @RequestMapping(value = "/hien-thi", method = RequestMethod.GET)
+//    public String hienThi(Model model) {
+//        List<CuaHang> list = cuaHangRepository.getAll();
+//        list.forEach(x -> System.out.println(x.toString()));
+//        String tenCuaHang = "Ngan beo";
+//        List<CuaHang> getByName = cuaHangRepository.findByTenOrderByMaAsc(tenCuaHang);
+////        getByName.forEach(x -> System.out.println(x.toString()));
+//        return null;
+//    }
+
     @GetMapping("/hien-thi")
 //    @RequestMapping(value = "/hien-thi", method = RequestMethod.GET)
-    public String hienThi(Model model) {
-        List<CuaHang> list = cuaHangRepository.getAll();
-        list.forEach(x -> System.out.println(x.toString()));
-        String tenCuaHang = "Ngan beo";
-        List<CuaHang> getByName = cuaHangRepository.findByTenOrderByMaAsc(tenCuaHang);
-//        getByName.forEach(x -> System.out.println(x.toString()));
-        return null;
+    public ResponseEntity hienThi(Model model,
+                                  Pageable pageable) {
+        Page<CuaHang> page = cuaHangRepository.findAll(pageable);
+        return new ResponseEntity(page, HttpStatus.OK);
     }
 
     @GetMapping("/add")
